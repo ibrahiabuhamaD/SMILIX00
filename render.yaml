@@ -1,0 +1,35 @@
+services:
+  - type: web
+    name: smilix-booking
+    runtime: node
+    plan: starter
+    buildCommand: npm ci
+    startCommand: npm start
+    healthCheckPath: /api/settings
+    disk:
+      name: smilix-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_PATH
+        value: /var/data/smilix.sqlite
+      - key: SESSION_SECRET
+        generateValue: true
+      - key: ADMIN_EMAIL
+        sync: false
+      - key: ADMIN_PASSWORD
+        sync: false
+      - key: WHATSAPP_TOKEN
+        sync: false
+      - key: WHATSAPP_PHONE_NUMBER_ID
+        sync: false
+      - key: WHATSAPP_BUSINESS_RECIPIENT
+        value: 962782578156
+      - key: WHATSAPP_GRAPH_VERSION
+        value: v22.0
+      - key: WHATSAPP_BOOKING_TEMPLATE
+        value: smilix_booking_notice
+      - key: WHATSAPP_REMINDER_TEMPLATE
+        value: smilix_appointment_reminder
